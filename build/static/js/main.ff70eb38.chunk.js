@@ -6,42 +6,40 @@
     ,
     ,
     ,
-    function(e, n, o) {
-      e.exports = o(11);
+    function(e, n, t) {
+      e.exports = t(11);
     },
     ,
     ,
     ,
     ,
-    function(e, n, o) {},
-    function(e, n, o) {},
-    function(e, n, o) {
+    function(e, n, t) {},
+    function(e, n, t) {},
+    function(e, n, t) {
       "use strict";
-      o.r(n);
-      var t = o(0),
-        a = o.n(t),
-        i = o(2),
-        r = o.n(i),
-        c = (o(9), o(3));
-      o(10);
+      t.r(n);
+      var o = t(0),
+        a = t.n(o),
+        i = t(2),
+        r = t.n(i),
+        c = (t(9), t(3));
+      t(10);
       var s = function() {
-        var e = a.a.useState("loading..."),
-          n = Object(c.a)(e, 2),
-          o = n[0],
-          t = n[1];
+        var e = !!chrome,
+          n = a.a.useState("loading..."),
+          t = Object(c.a)(n, 2),
+          o = t[0],
+          i = t[1];
         return (
-          chrome.tabs.executeScript(null, { file: "/baseliner.js" }, function(
-            e
-          ) {
-            e && t("Loaded!"),
-              console.log(e),
-              chrome.tabs.insertCSS(
-                { code: "body { color: red!important}" },
-                function() {
-                  console.log("Test");
-                }
-              );
-          }),
+          e &&
+            chrome.tabs.executeScript(null, { file: "/baseliner.js" }, function(
+              e
+            ) {
+              "string" === typeof e[0] &&
+                chrome.tabs.insertCSS({ code: e[0] }, function() {
+                  i("Baseliner styles updated");
+                });
+            }),
           a.a.createElement("div", { className: "App" }, o)
         );
       };
@@ -61,4 +59,4 @@
   ],
   [[4, 1, 2]]
 ]);
-//# sourceMappingURL=main.ff9fd37c.chunk.js.map
+//# sourceMappingURL=main.ff70eb38.chunk.js.map
