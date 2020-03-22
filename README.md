@@ -1,5 +1,11 @@
 WIP
 
+# TODO 
+- Prevent multiple Baseliner instances
+- Add Typescript
+- Nicer UI design
+- Other features as per legacy version like service workers etc
+
 # Notes
 - simplify code, it could all be done using insertCSS
 - Double check if manifest's permission are OK due to chunk hashes being dynamic
