@@ -13,12 +13,21 @@ const Baseliner = {
   },
 
   generateStyles: function() {
-    const red = 255;
-    const green = 0;
-    const blue = 0;
-    const opacity = 1;
-    const height = 1;
-    const top = 40;
+    const baselinerPaddingTop = 0; // Note: disabling this feature for now
+    const vertical = {
+      red: 255,
+      green: 0,
+      blue: 0,
+      opacity: 0.5,
+      spacingBetweenLines: 5 // Minimum 2
+    };
+    const horizontal = {
+      red: 0,
+      green: 255,
+      blue: 0,
+      opacity: 0.5,
+      spacingBetweenLines: 5 // Minimum 2
+    };
 
     /*language=LESS*/
     return `
@@ -45,14 +54,19 @@ const Baseliner = {
   
       .baseliner:after {
         background: linear-gradient(
-            rgba(${red}, ${green}, ${blue}, ${opacity}) 1px,
+            rgba(${vertical.red}, ${vertical.green}, ${vertical.blue}, ${vertical.opacity}) 1px,
             transparent 1px
           )
-          left top / 1px ${height}px;
+          left top / 100% ${vertical.spacingBetweenLines}px repeat-y,
+          linear-gradient(
+            to right, rgba(${horizontal.red}, ${horizontal.green}, ${horizontal.blue}, ${horizontal.opacity}) 1px,
+            transparent 1px
+          )
+          left top / ${horizontal.spacingBetweenLines}px 100% repeat-x;
       }
   
       .baseliner:after {
-        top: ${top}px;
+        top: ${baselinerPaddingTop}px;
       }
       
       body {
@@ -63,3 +77,8 @@ const Baseliner = {
 };
 
 Baseliner.setup();
+
+/**
+ linear-gradient(rgba(255, 0, 0, 0.1) 1px, transparent 0px) left top / 100% 2px repeat-y,
+ linear-gradient(to right, rgba(0, 255, 0, 0.9) 1px, transparent 1px) left top / 2px 100% repeat-x!important
+ */
