@@ -1,4 +1,4 @@
-const Baseliner = {
+window.Baseliner = {
   $body: null,
 
   setup: function() {

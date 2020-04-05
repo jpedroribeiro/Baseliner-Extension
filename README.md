@@ -1,7 +1,6 @@
 WIP
 
 # TODO 
-- Prevent multiple Baseliner instances
 - Add Typescript
 - Nicer UI design
 - Other features as per legacy version like service workers etc

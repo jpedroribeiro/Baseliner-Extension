@@ -80,6 +80,7 @@ function Popup() {
       );
     }
   }, [
+    ENV_EXTENSION,
     colourVertical,
     colourHorizontal,
     opacityVertical,
