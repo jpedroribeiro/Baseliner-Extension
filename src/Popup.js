@@ -5,7 +5,6 @@ import hexToRGB from "./hexToRGB";
 
 function Popup() {
   const ENV_EXTENSION = chrome && chrome.tabs;
-  const [onceFlag, setOnceFlag] = React.useState(false);
   const [status, setStatus] = React.useState("loading...");
   const [colourVertical, setColourVertical] = React.useState("#ff0000");
   const [opacityVertical, setOpacityVertical] = React.useState(100);
@@ -13,6 +12,17 @@ function Popup() {
   const [colourHorizontal, setColourHorizontal] = React.useState("#00ff00");
   const [opacityHorizontal, setOpacityHorizontal] = React.useState(100);
   const [baselineHorizontal, setBaselineHorizontal] = React.useState(8);
+
+  if (ENV_EXTENSION) {
+    // Start up Baseliner
+    chrome.tabs.executeScript(null, { file: "/baseliner.js" });
+
+    // Listening to messages, in this case, for Storage update
+    // TODO on hold due to multi renders
+    // chrome.runtime.onMessage.addListener(function(request) {
+    //   console.log(request);
+    // });
+  }
 
   function handleColour(e) {
     const grid = e.currentTarget.dataset.grid;
@@ -60,6 +70,7 @@ function Popup() {
         baseline: baselineHorizontal
       };
 
+      // Generate and apply styles
       chrome.tabs.executeScript(
         {
           code: `Baseliner.generateStyles(${vertical.red}, ${vertical.blue}, ${vertical.green}, ${vertical.opacity} ,${vertical.baseline}, ${horizontal.red}, ${horizontal.blue}, ${horizontal.green}, ${horizontal.opacity} ,${horizontal.baseline})`
@@ -78,6 +89,12 @@ function Popup() {
           }
         }
       );
+
+      // Save to storage
+      // TODO on hold for now
+      // chrome.tabs.executeScript({
+      //   code: `Baseliner.saveToStorage({verticalRed:${vertical.red}, verticalBlue:${vertical.blue}, verticalGreen:${vertical.green}, verticalOpacity: ${vertical.opacity} , verticalBaseline: ${vertical.baseline}, horizontalRed: ${horizontal.red}, horizontalBlue: ${horizontal.blue}, horizontalGreen: ${horizontal.green}, horizontalOpacity: ${horizontal.opacity} ,horizontalBaseline: ${horizontal.baseline}})`
+      // });
     }
   }, [
     ENV_EXTENSION,
@@ -88,11 +105,6 @@ function Popup() {
     baselineVertical,
     baselineHorizontal
   ]);
-
-  if (ENV_EXTENSION && !onceFlag) {
-    chrome.tabs.executeScript(null, { file: "/baseliner.js" });
-    setOnceFlag(true);
-  }
 
   return (
     <div className="Popup">

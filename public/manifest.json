@@ -22,5 +22,5 @@
   },
   "content_security_policy": "script-src 'self' 'sha256-d8OMhPWLtwxmmPVk+si2J0GiOcDVaPFvC2pJoW/kOlU='; object-src 'self'",
   "permissions": ["activeTab", "storage"],
-  "web_accessible_resources": ["line.svg", "main.js"]
+  "web_accessible_resources": ["main.js"]
 }

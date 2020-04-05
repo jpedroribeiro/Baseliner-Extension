@@ -45,72 +45,69 @@
           });
       var u = function() {
         var e = chrome && chrome.tabs,
-          a = r.a.useState(!1),
+          a = r.a.useState("loading..."),
           t = Object(i.a)(a, 2),
           n = t[0],
           l = t[1],
-          c = r.a.useState("loading..."),
+          c = r.a.useState("#ff0000"),
           u = Object(i.a)(c, 2),
           s = u[0],
           m = u[1],
-          d = r.a.useState("#ff0000"),
+          d = r.a.useState(100),
           g = Object(i.a)(d, 2),
           p = g[0],
           b = g[1],
-          v = r.a.useState(100),
+          v = r.a.useState(8),
           h = Object(i.a)(v, 2),
           E = h[0],
           f = h[1],
-          y = r.a.useState(8),
+          y = r.a.useState("#00ff00"),
           w = Object(i.a)(y, 2),
           S = w[0],
           z = w[1],
-          O = r.a.useState("#00ff00"),
-          j = Object(i.a)(O, 2),
-          C = j[0],
-          N = j[1],
-          T = r.a.useState(100),
-          x = Object(i.a)(T, 2),
+          C = r.a.useState(100),
+          N = Object(i.a)(C, 2),
+          O = N[0],
+          T = N[1],
+          j = r.a.useState(8),
+          x = Object(i.a)(j, 2),
           B = x[0],
-          H = x[1],
-          V = r.a.useState(8),
-          F = Object(i.a)(V, 2),
-          k = F[0],
-          I = F[1];
-        function $(e) {
+          H = x[1];
+        function V(e) {
           "vertical" === e.currentTarget.dataset.grid
-            ? b(e.currentTarget.value)
-            : N(e.currentTarget.value);
+            ? m(e.currentTarget.value)
+            : z(e.currentTarget.value);
         }
-        function J(e) {
-          "vertical" === e.currentTarget.dataset.grid
-            ? z(e.currentTarget.value)
-            : I(e.currentTarget.value);
-        }
-        function W(e) {
+        function F(e) {
           "vertical" === e.currentTarget.dataset.grid
             ? f(e.currentTarget.value)
             : H(e.currentTarget.value);
         }
+        function k(e) {
+          "vertical" === e.currentTarget.dataset.grid
+            ? b(e.currentTarget.value)
+            : T(e.currentTarget.value);
+        }
         return (
+          e && chrome.tabs.executeScript(null, { file: "/baseliner.js" }),
           r.a.useEffect(
             function() {
               if (e) {
-                var a = o(p),
+                var a = o(s),
                   t = {
                     red: a.r,
                     green: a.g,
                     blue: a.b,
-                    opacity: E,
-                    baseline: S
+                    opacity: p,
+                    baseline: E
                   },
-                  n = o(C),
+                  n = o(S),
                   r = {
                     red: n.r,
                     green: n.g,
                     blue: n.b,
-                    opacity: B,
-                    baseline: k
+                    opacity: O,
+                    baseline: B
                   };
                 chrome.tabs.executeScript(
                   {
@@ -128,23 +125,20 @@
                   },
                   function(e) {
                     e[0] &&
-                      (m("Updating Baseliner"),
+                      (l("Updating Baseliner"),
                       chrome.tabs.insertCSS({ code: e[0] }, function() {
-                        m("Baseliner styles updated");
+                        l("Baseliner styles updated");
                       }));
                   }
                 );
               }
             },
-            [e, p, C, E, B, S, k]
+            [e, s, S, p, O, E, B]
           ),
-          e &&
-            !n &&
-            (chrome.tabs.executeScript(null, { file: "/baseliner.js" }), l(!0)),
           r.a.createElement(
             "div",
             { className: "Popup" },
-            r.a.createElement("p", null, "Status: ", s),
+            r.a.createElement("p", null, "Status: ", n),
             r.a.createElement(
               "div",
               { className: "grid vertical" },
@@ -160,9 +154,9 @@
                 r.a.createElement("input", {
                   type: "color",
                   id: "colourVertical",
-                  value: p,
+                  value: s,
                   "data-grid": "vertical",
-                  onChange: $
+                  onChange: V
                 })
               ),
               r.a.createElement(
@@ -178,11 +172,11 @@
                   min: 0,
                   max: 100,
                   id: "opacityVertical",
-                  value: E,
+                  value: p,
                   "data-grid": "vertical",
-                  onChange: W
+                  onChange: k
                 }),
-                r.a.createElement("span", null, E, "%")
+                r.a.createElement("span", null, p, "%")
               ),
               r.a.createElement(
                 "div",
@@ -196,9 +190,9 @@
                   type: "number",
                   min: 2,
                   id: "baselineVertical",
-                  value: S,
+                  value: E,
                   "data-grid": "vertical",
-                  onChange: J
+                  onChange: F
                 })
               )
             ),
@@ -217,9 +211,9 @@
                 r.a.createElement("input", {
                   type: "color",
                   id: "colourHorizontal",
-                  value: C,
+                  value: S,
                   "data-grid": "horizontal",
-                  onChange: $
+                  onChange: V
                 })
               ),
               r.a.createElement(
@@ -235,11 +229,11 @@
                   min: 0,
                   max: 100,
                   id: "opacityHorizontal",
-                  value: B,
+                  value: O,
                   "data-grid": "horizontal",
-                  onChange: W
+                  onChange: k
                 }),
-                r.a.createElement("span", null, B, "%")
+                r.a.createElement("span", null, O, "%")
               ),
               r.a.createElement(
                 "div",
@@ -253,9 +247,9 @@
                   type: "number",
                   min: 2,
                   id: "baselineHorizontal",
-                  value: k,
+                  value: B,
                   "data-grid": "horizontal",
-                  onChange: J
+                  onChange: F
                 })
               )
             )
@@ -278,4 +272,4 @@
   ],
   [[4, 1, 2]]
 ]);
-//# sourceMappingURL=main.bc9c58a8.chunk.js.map
+//# sourceMappingURL=main.e34ab3f6.chunk.js.map

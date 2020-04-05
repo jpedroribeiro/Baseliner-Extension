@@ -1,7 +1,11 @@
+/*global chrome*/
 window.Baseliner = {
   setup: function() {
     // Add baseliner class to body
     document.body.classList.add("baseliner");
+
+    // TODO on hold due to multi renders
+    // this.loadUpFromStorage();
   },
 
   generateStyles: function(
@@ -64,6 +68,40 @@ window.Baseliner = {
         height: auto;
       }
     `;
+  },
+
+  // TODO on hold due to multi renders
+  loadUpFromStorage: function() {
+    const url = window.location.origin;
+
+    chrome.storage.sync.get(url, data => {
+      const item = data[url];
+      if (item) {
+        // All done!
+        console.log(
+          "%c Baseliner loaded from Storage 🗄 ",
+          "background: #DFDFDF; color: #209C39"
+        );
+      }
+      // Tells extension we got data
+      chrome.runtime.sendMessage({ data: item });
+    });
+  },
+
+  // TODO on hold due to multi renders
+  saveToStorage: function(objOfValues) {
+    const url = window.location.origin;
+    const save = {};
+    save[url] = objOfValues;
+
+    if (!!url) {
+      chrome.storage.sync.set(save, function() {
+        console.log(
+          "%c Baseliner data saved to storage 💾",
+          "background: #DFDFDF; color: #209C39"
+        );
+      });
+    }
   }
 };
 
