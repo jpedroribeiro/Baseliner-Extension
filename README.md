@@ -1,9 +1,8 @@
 WIP
 
 # TODO
-(1) sort out multi renders which is causing too many messages to be passed (and probably perf issue), check for TODOs in code
-(2) Load and save to storage (partially done, on hold due to #1 👆)
-(3) Avoid injecting CSS constantly, find a way to have a cleaner injected CSS (might be sorted after #2)
+(2) Avoid injecting CSS constantly, find a way to have a cleaner injected CSS (might be sorted after #2)
+(3) Load and save to storage
 (4) Nicer UI design
 (5) Add Typescript
 (6) Other features as per legacy version like service workers etc

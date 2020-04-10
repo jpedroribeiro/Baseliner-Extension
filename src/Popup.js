@@ -5,24 +5,14 @@ import hexToRGB from "./hexToRGB";
 
 function Popup() {
   const ENV_EXTENSION = chrome && chrome.tabs;
-  const [status, setStatus] = React.useState("loading...");
+  const [isFirstRun, setIsFirstRun] = React.useState(true);
+  const [statusLabel, setStatusLabel] = React.useState("loading...");
   const [colourVertical, setColourVertical] = React.useState("#ff0000");
   const [opacityVertical, setOpacityVertical] = React.useState(100);
   const [baselineVertical, setBaselineVertical] = React.useState(8);
   const [colourHorizontal, setColourHorizontal] = React.useState("#00ff00");
   const [opacityHorizontal, setOpacityHorizontal] = React.useState(100);
   const [baselineHorizontal, setBaselineHorizontal] = React.useState(8);
-
-  if (ENV_EXTENSION) {
-    // Start up Baseliner
-    chrome.tabs.executeScript(null, { file: "/baseliner.js" });
-
-    // Listening to messages, in this case, for Storage update
-    // TODO on hold due to multi renders
-    // chrome.runtime.onMessage.addListener(function(request) {
-    //   console.log(request);
-    // });
-  }
 
   function handleColour(e) {
     const grid = e.currentTarget.dataset.grid;
@@ -52,7 +42,33 @@ function Popup() {
   }
 
   React.useEffect(() => {
+    /* Note: renders based on first load */
     if (ENV_EXTENSION) {
+      // Load up Baseliner script
+      chrome.tabs.executeScript(null, { file: "/baseliner.js" });
+
+      // Start listening to messages
+      chrome.runtime.onMessage.addListener(function(message) {
+        switch (message?.status) {
+          case "ready":
+            setIsFirstRun(false);
+            break;
+
+          case "foo":
+            // other events based on status...
+            break;
+
+          default:
+            // Note: needed at all?
+            console.error("No recognized status message", message);
+        }
+      });
+    }
+  }, [ENV_EXTENSION]);
+
+  React.useEffect(() => {
+    /* Note: renders based on UI changes */
+    if (ENV_EXTENSION && !isFirstRun) {
       const colourVerticalRGB = hexToRGB(colourVertical);
       const vertical = {
         red: colourVerticalRGB.r,
@@ -77,13 +93,13 @@ function Popup() {
         },
         function(styles) {
           if (styles[0]) {
-            setStatus("Updating Baseliner");
+            setStatusLabel("Updating Baseliner");
             chrome.tabs.insertCSS(
               {
                 code: styles[0]
               },
               function() {
-                setStatus("Baseliner styles updated");
+                setStatusLabel("Baseliner styles updated");
               }
             );
           }
@@ -97,7 +113,7 @@ function Popup() {
       // });
     }
   }, [
-    ENV_EXTENSION,
+    isFirstRun,
     colourVertical,
     colourHorizontal,
     opacityVertical,
@@ -108,7 +124,7 @@ function Popup() {
 
   return (
     <div className="Popup">
-      <p>Status: {status}</p>
+      <p>Status: {statusLabel}</p>
       <div className={"grid vertical"}>
         <h1>Vertical</h1>
         <div className={"row"}>

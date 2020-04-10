@@ -20,10 +20,10 @@
       t.r(a);
       var n = t(0),
         r = t.n(n),
-        l = t(3),
-        c = t.n(l),
-        i = (t(9), t(1)),
-        o =
+        c = t(3),
+        l = t.n(c),
+        o = (t(9), t(1)),
+        i =
           (t(10),
           function(e) {
             e = e.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, function(
@@ -43,71 +43,92 @@
                 }
               : null;
           });
-      var u = function() {
+      var s = function() {
         var e = chrome && chrome.tabs,
-          a = r.a.useState("loading..."),
-          t = Object(i.a)(a, 2),
+          a = r.a.useState(!0),
+          t = Object(o.a)(a, 2),
           n = t[0],
-          l = t[1],
-          c = r.a.useState("#ff0000"),
-          u = Object(i.a)(c, 2),
-          s = u[0],
-          m = u[1],
-          d = r.a.useState(100),
-          g = Object(i.a)(d, 2),
-          p = g[0],
-          b = g[1],
-          v = r.a.useState(8),
-          h = Object(i.a)(v, 2),
-          E = h[0],
-          f = h[1],
-          y = r.a.useState("#00ff00"),
-          w = Object(i.a)(y, 2),
+          c = t[1],
+          l = r.a.useState("loading..."),
+          s = Object(o.a)(l, 2),
+          u = s[0],
+          d = s[1],
+          m = r.a.useState("#ff0000"),
+          g = Object(o.a)(m, 2),
+          b = g[0],
+          p = g[1],
+          v = r.a.useState(100),
+          f = Object(o.a)(v, 2),
+          h = f[0],
+          E = f[1],
+          y = r.a.useState(8),
+          w = Object(o.a)(y, 2),
           S = w[0],
           z = w[1],
-          C = r.a.useState(100),
-          N = Object(i.a)(C, 2),
-          O = N[0],
-          T = N[1],
-          j = r.a.useState(8),
-          x = Object(i.a)(j, 2),
+          N = r.a.useState("#00ff00"),
+          O = Object(o.a)(N, 2),
+          j = O[0],
+          C = O[1],
+          T = r.a.useState(100),
+          x = Object(o.a)(T, 2),
           B = x[0],
-          H = x[1];
-        function V(e) {
+          H = x[1],
+          V = r.a.useState(8),
+          k = Object(o.a)(V, 2),
+          F = k[0],
+          I = k[1];
+        function $(e) {
           "vertical" === e.currentTarget.dataset.grid
-            ? m(e.currentTarget.value)
-            : z(e.currentTarget.value);
+            ? p(e.currentTarget.value)
+            : C(e.currentTarget.value);
         }
-        function F(e) {
+        function J(e) {
           "vertical" === e.currentTarget.dataset.grid
-            ? f(e.currentTarget.value)
+            ? z(e.currentTarget.value)
+            : I(e.currentTarget.value);
+        }
+        function W(e) {
+          "vertical" === e.currentTarget.dataset.grid
+            ? E(e.currentTarget.value)
             : H(e.currentTarget.value);
         }
-        function k(e) {
-          "vertical" === e.currentTarget.dataset.grid
-            ? b(e.currentTarget.value)
-            : T(e.currentTarget.value);
-        }
         return (
-          e && chrome.tabs.executeScript(null, { file: "/baseliner.js" }),
           r.a.useEffect(
             function() {
-              if (e) {
-                var a = o(s),
+              e &&
+                (chrome.tabs.executeScript(null, { file: "/baseliner.js" }),
+                chrome.runtime.onMessage.addListener(function(e) {
+                  switch (null === e || void 0 === e ? void 0 : e.status) {
+                    case "ready":
+                      c(!1);
+                      break;
+                    case "foo":
+                      break;
+                    default:
+                      console.error("No recognized status message", e);
+                  }
+                }));
+            },
+            [e]
+          ),
+          r.a.useEffect(
+            function() {
+              if (e && !n) {
+                var a = i(b),
                   t = {
                     red: a.r,
                     green: a.g,
                     blue: a.b,
-                    opacity: p,
-                    baseline: E
+                    opacity: h,
+                    baseline: S
                   },
-                  n = o(S),
-                  r = {
-                    red: n.r,
-                    green: n.g,
-                    blue: n.b,
-                    opacity: O,
-                    baseline: B
+                  r = i(j),
+                  c = {
+                    red: r.r,
+                    green: r.g,
+                    blue: r.b,
+                    opacity: B,
+                    baseline: F
                   };
                 chrome.tabs.executeScript(
                   {
@@ -117,28 +138,28 @@
                       .concat(t.green, ", ")
                       .concat(t.opacity, " ,")
                       .concat(t.baseline, ", ")
-                      .concat(r.red, ", ")
-                      .concat(r.blue, ", ")
-                      .concat(r.green, ", ")
-                      .concat(r.opacity, " ,")
-                      .concat(r.baseline, ")")
+                      .concat(c.red, ", ")
+                      .concat(c.blue, ", ")
+                      .concat(c.green, ", ")
+                      .concat(c.opacity, " ,")
+                      .concat(c.baseline, ")")
                   },
                   function(e) {
                     e[0] &&
-                      (l("Updating Baseliner"),
+                      (d("Updating Baseliner"),
                       chrome.tabs.insertCSS({ code: e[0] }, function() {
-                        l("Baseliner styles updated");
+                        d("Baseliner styles updated");
                       }));
                   }
                 );
               }
             },
-            [e, s, S, p, O, E, B]
+            [n, b, j, h, B, S, F]
           ),
           r.a.createElement(
             "div",
             { className: "Popup" },
-            r.a.createElement("p", null, "Status: ", n),
+            r.a.createElement("p", null, "Status: ", u),
             r.a.createElement(
               "div",
               { className: "grid vertical" },
@@ -154,9 +175,9 @@
                 r.a.createElement("input", {
                   type: "color",
                   id: "colourVertical",
-                  value: s,
+                  value: b,
                   "data-grid": "vertical",
-                  onChange: V
+                  onChange: $
                 })
               ),
               r.a.createElement(
@@ -172,11 +193,11 @@
                   min: 0,
                   max: 100,
                   id: "opacityVertical",
-                  value: p,
+                  value: h,
                   "data-grid": "vertical",
-                  onChange: k
+                  onChange: W
                 }),
-                r.a.createElement("span", null, p, "%")
+                r.a.createElement("span", null, h, "%")
               ),
               r.a.createElement(
                 "div",
@@ -190,9 +211,9 @@
                   type: "number",
                   min: 2,
                   id: "baselineVertical",
-                  value: E,
+                  value: S,
                   "data-grid": "vertical",
-                  onChange: F
+                  onChange: J
                 })
               )
             ),
@@ -211,9 +232,9 @@
                 r.a.createElement("input", {
                   type: "color",
                   id: "colourHorizontal",
-                  value: S,
+                  value: j,
                   "data-grid": "horizontal",
-                  onChange: V
+                  onChange: $
                 })
               ),
               r.a.createElement(
@@ -229,11 +250,11 @@
                   min: 0,
                   max: 100,
                   id: "opacityHorizontal",
-                  value: O,
+                  value: B,
                   "data-grid": "horizontal",
-                  onChange: k
+                  onChange: W
                 }),
-                r.a.createElement("span", null, O, "%")
+                r.a.createElement("span", null, B, "%")
               ),
               r.a.createElement(
                 "div",
@@ -247,9 +268,9 @@
                   type: "number",
                   min: 2,
                   id: "baselineHorizontal",
-                  value: B,
+                  value: F,
                   "data-grid": "horizontal",
-                  onChange: F
+                  onChange: J
                 })
               )
             )
@@ -263,7 +284,7 @@
             /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
           )
       );
-      c.a.render(r.a.createElement(u, null), document.getElementById("root")),
+      l.a.render(r.a.createElement(s, null), document.getElementById("root")),
         "serviceWorker" in navigator &&
           navigator.serviceWorker.ready.then(function(e) {
             e.unregister();
@@ -272,4 +293,4 @@
   ],
   [[4, 1, 2]]
 ]);
-//# sourceMappingURL=main.e34ab3f6.chunk.js.map
+//# sourceMappingURL=main.18ec07ca.chunk.js.map

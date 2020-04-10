@@ -4,8 +4,11 @@ window.Baseliner = {
     // Add baseliner class to body
     document.body.classList.add("baseliner");
 
-    // TODO on hold due to multi renders
+    // TODO
     // this.loadUpFromStorage();
+
+    // Tells extension we're ready
+    chrome.runtime.sendMessage({ status: "ready" });
   },
 
   generateStyles: function(
@@ -70,7 +73,7 @@ window.Baseliner = {
     `;
   },
 
-  // TODO on hold due to multi renders
+  // TODO
   loadUpFromStorage: function() {
     const url = window.location.origin;
 
@@ -88,7 +91,7 @@ window.Baseliner = {
     });
   },
 
-  // TODO on hold due to multi renders
+  // TODO
   saveToStorage: function(objOfValues) {
     const url = window.location.origin;
     const save = {};
