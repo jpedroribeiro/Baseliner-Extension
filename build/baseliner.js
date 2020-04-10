@@ -1,8 +1,18 @@
 /*global chrome*/
 window.Baseliner = {
+  styleTagID: "baselinerStyleEl",
+
   setup: function() {
-    // Add baseliner class to body
+    // Add Baseliner class to body
     document.body.classList.add("baseliner");
+
+    // Add Baseliner style tag
+    if (!document.getElementById(this.styleTagID)) {
+      const styleTag = document.createElement("style");
+      styleTag.id = this.styleTagID;
+      styleTag.appendChild(document.createTextNode("")); // WebKit hack :(
+      document.head.appendChild(styleTag);
+    }
 
     // TODO
     // this.loadUpFromStorage();
@@ -24,14 +34,17 @@ window.Baseliner = {
     horizontalBaseline
   ) {
     const baselinerPaddingTop = 0; // Note: disabling this feature for now
+    const sheet = document.getElementById(this.styleTagID).sheet;
 
     /*language=LESS*/
-    return `
-      .baseliner {
+    const stylesArray = [
+      `.baseliner:active:after {
+        display: none; /* NOTE: this could be optional? */
+      }`,
+      `.baseliner {
         position: relative;
-      }
-      
-      .baseliner:after {
+      }`,
+      `.baseliner:after {
         position: absolute;
         width: auto;
         height: auto;
@@ -42,35 +55,42 @@ window.Baseliner = {
         right: 0;
         bottom: 0;
         left: 0;
-      }
-      
-      .baseliner:active:after {
-        display: none;
-      }
-  
-      .baseliner:after {
         background: linear-gradient(
             rgba(${verticalRed}, ${verticalGreen}, ${verticalBlue}, ${verticalOpacity /
-      100}) 1px,
+        100}) 1px,
             transparent 1px
           )
           left top / 100% ${verticalBaseline}px repeat-y,
           linear-gradient(
             to right, rgba(${horizontalRed}, ${horizontalGreen}, ${horizontalBlue}, ${horizontalOpacity /
-      100}) 1px,
+        100}) 1px,
             transparent 1px
           )
           left top / ${horizontalBaseline}px 100% repeat-x;
-      }
-  
-      .baseliner:after {
         top: ${baselinerPaddingTop}px;
-      }
-      
-      body {
+      }`,
+      `body {
         height: auto;
-      }
-    `;
+      }`
+    ];
+
+    // Cleans up styles
+    if (Array.from(sheet.cssRules).length > 0) {
+      console.log(sheet.cssRules);
+      Array.from(sheet.cssRules).forEach((rule, index) => {
+        if (index < Array.from(sheet.cssRules).length) {
+          sheet.deleteRule(index);
+        }
+      });
+    }
+
+    // Applies new rules
+    stylesArray.forEach(styleRule => {
+      sheet.insertRule(styleRule);
+    });
+
+    // Tells extension we're done updating
+    chrome.runtime.sendMessage({ status: "updated" });
   },
 
   // TODO

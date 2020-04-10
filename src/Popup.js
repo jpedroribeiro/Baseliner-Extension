@@ -54,8 +54,8 @@ function Popup() {
             setIsFirstRun(false);
             break;
 
-          case "foo":
-            // other events based on status...
+          case "updated":
+            setStatusLabel("Baseliner styles updated");
             break;
 
           default:
@@ -87,24 +87,9 @@ function Popup() {
       };
 
       // Generate and apply styles
-      chrome.tabs.executeScript(
-        {
-          code: `Baseliner.generateStyles(${vertical.red}, ${vertical.blue}, ${vertical.green}, ${vertical.opacity} ,${vertical.baseline}, ${horizontal.red}, ${horizontal.blue}, ${horizontal.green}, ${horizontal.opacity} ,${horizontal.baseline})`
-        },
-        function(styles) {
-          if (styles[0]) {
-            setStatusLabel("Updating Baseliner");
-            chrome.tabs.insertCSS(
-              {
-                code: styles[0]
-              },
-              function() {
-                setStatusLabel("Baseliner styles updated");
-              }
-            );
-          }
-        }
-      );
+      chrome.tabs.executeScript({
+        code: `Baseliner.generateStyles(${vertical.red}, ${vertical.blue}, ${vertical.green}, ${vertical.opacity} ,${vertical.baseline}, ${horizontal.red}, ${horizontal.blue}, ${horizontal.green}, ${horizontal.opacity} ,${horizontal.baseline})`
+      });
 
       // Save to storage
       // TODO on hold for now

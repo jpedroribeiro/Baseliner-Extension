@@ -20,8 +20,8 @@
       t.r(a);
       var n = t(0),
         r = t.n(n),
-        c = t(3),
-        l = t.n(c),
+        l = t(3),
+        c = t.n(l),
         o = (t(9), t(1)),
         i =
           (t(10),
@@ -43,16 +43,16 @@
                 }
               : null;
           });
-      var s = function() {
+      var u = function() {
         var e = chrome && chrome.tabs,
           a = r.a.useState(!0),
           t = Object(o.a)(a, 2),
           n = t[0],
-          c = t[1],
-          l = r.a.useState("loading..."),
-          s = Object(o.a)(l, 2),
-          u = s[0],
-          d = s[1],
+          l = t[1],
+          c = r.a.useState("loading..."),
+          u = Object(o.a)(c, 2),
+          s = u[0],
+          d = u[1],
           m = r.a.useState("#ff0000"),
           g = Object(o.a)(m, 2),
           b = g[0],
@@ -63,34 +63,34 @@
           E = f[1],
           y = r.a.useState(8),
           w = Object(o.a)(y, 2),
-          S = w[0],
-          z = w[1],
+          z = w[0],
+          S = w[1],
           N = r.a.useState("#00ff00"),
           O = Object(o.a)(N, 2),
           j = O[0],
-          C = O[1],
-          T = r.a.useState(100),
-          x = Object(o.a)(T, 2),
-          B = x[0],
-          H = x[1],
-          V = r.a.useState(8),
-          k = Object(o.a)(V, 2),
-          F = k[0],
-          I = k[1];
+          T = O[1],
+          x = r.a.useState(100),
+          C = Object(o.a)(x, 2),
+          H = C[0],
+          V = C[1],
+          k = r.a.useState(8),
+          B = Object(o.a)(k, 2),
+          F = B[0],
+          I = B[1];
         function $(e) {
           "vertical" === e.currentTarget.dataset.grid
             ? p(e.currentTarget.value)
-            : C(e.currentTarget.value);
+            : T(e.currentTarget.value);
         }
         function J(e) {
           "vertical" === e.currentTarget.dataset.grid
-            ? z(e.currentTarget.value)
+            ? S(e.currentTarget.value)
             : I(e.currentTarget.value);
         }
         function W(e) {
           "vertical" === e.currentTarget.dataset.grid
             ? E(e.currentTarget.value)
-            : H(e.currentTarget.value);
+            : V(e.currentTarget.value);
         }
         return (
           r.a.useEffect(
@@ -100,9 +100,10 @@
                 chrome.runtime.onMessage.addListener(function(e) {
                   switch (null === e || void 0 === e ? void 0 : e.status) {
                     case "ready":
-                      c(!1);
+                      l(!1);
                       break;
-                    case "foo":
+                    case "updated":
+                      d("Baseliner styles updated");
                       break;
                     default:
                       console.error("No recognized status message", e);
@@ -120,46 +121,37 @@
                     green: a.g,
                     blue: a.b,
                     opacity: h,
-                    baseline: S
+                    baseline: z
                   },
                   r = i(j),
-                  c = {
+                  l = {
                     red: r.r,
                     green: r.g,
                     blue: r.b,
-                    opacity: B,
+                    opacity: H,
                     baseline: F
                   };
-                chrome.tabs.executeScript(
-                  {
-                    code: "Baseliner.generateStyles("
-                      .concat(t.red, ", ")
-                      .concat(t.blue, ", ")
-                      .concat(t.green, ", ")
-                      .concat(t.opacity, " ,")
-                      .concat(t.baseline, ", ")
-                      .concat(c.red, ", ")
-                      .concat(c.blue, ", ")
-                      .concat(c.green, ", ")
-                      .concat(c.opacity, " ,")
-                      .concat(c.baseline, ")")
-                  },
-                  function(e) {
-                    e[0] &&
-                      (d("Updating Baseliner"),
-                      chrome.tabs.insertCSS({ code: e[0] }, function() {
-                        d("Baseliner styles updated");
-                      }));
-                  }
-                );
+                chrome.tabs.executeScript({
+                  code: "Baseliner.generateStyles("
+                    .concat(t.red, ", ")
+                    .concat(t.blue, ", ")
+                    .concat(t.green, ", ")
+                    .concat(t.opacity, " ,")
+                    .concat(t.baseline, ", ")
+                    .concat(l.red, ", ")
+                    .concat(l.blue, ", ")
+                    .concat(l.green, ", ")
+                    .concat(l.opacity, " ,")
+                    .concat(l.baseline, ")")
+                });
               }
             },
-            [n, b, j, h, B, S, F]
+            [n, b, j, h, H, z, F]
           ),
           r.a.createElement(
             "div",
             { className: "Popup" },
-            r.a.createElement("p", null, "Status: ", u),
+            r.a.createElement("p", null, "Status: ", s),
             r.a.createElement(
               "div",
               { className: "grid vertical" },
@@ -211,7 +203,7 @@
                   type: "number",
                   min: 2,
                   id: "baselineVertical",
-                  value: S,
+                  value: z,
                   "data-grid": "vertical",
                   onChange: J
                 })
@@ -250,11 +242,11 @@
                   min: 0,
                   max: 100,
                   id: "opacityHorizontal",
-                  value: B,
+                  value: H,
                   "data-grid": "horizontal",
                   onChange: W
                 }),
-                r.a.createElement("span", null, B, "%")
+                r.a.createElement("span", null, H, "%")
               ),
               r.a.createElement(
                 "div",
@@ -284,7 +276,7 @@
             /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
           )
       );
-      l.a.render(r.a.createElement(s, null), document.getElementById("root")),
+      c.a.render(r.a.createElement(u, null), document.getElementById("root")),
         "serviceWorker" in navigator &&
           navigator.serviceWorker.ready.then(function(e) {
             e.unregister();
@@ -293,4 +285,4 @@
   ],
   [[4, 1, 2]]
 ]);
-//# sourceMappingURL=main.18ec07ca.chunk.js.map
+//# sourceMappingURL=main.c7602ae1.chunk.js.map
