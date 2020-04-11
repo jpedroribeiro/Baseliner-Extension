@@ -72,12 +72,14 @@ window.Baseliner = {
 
     // Remove previous styles
     if (Array.from(sheet.cssRules).length > 0) {
-      console.log(sheet.cssRules);
-      Array.from(sheet.cssRules).forEach((rule, index) => {
-        if (index < Array.from(sheet.cssRules).length) {
-          sheet.deleteRule(index);
-        }
-      });
+      while (sheet.cssRules.length > 0) {
+        sheet.deleteRule(0);
+      }
+      // Array.from(sheet.cssRules).forEach((rule, index) => {
+      //   if (index < Array.from(sheet.cssRules).length) {
+      //     sheet.deleteRule(index);
+      //   }
+      // });
     }
 
     // Apply new styles
@@ -86,8 +88,18 @@ window.Baseliner = {
     });
 
     // Saves to storage
-    // TODO
-    // this.saveToStorage({verticalRed:${vertical.red}, verticalBlue:${vertical.blue}, verticalGreen:${vertical.green}, verticalOpacity: ${vertical.opacity} , verticalBaseline: ${vertical.baseline}, horizontalRed: ${horizontal.red}, horizontalBlue: ${horizontal.blue}, horizontalGreen: ${horizontal.green}, horizontalOpacity: ${horizontal.opacity} ,horizontalBaseline: ${horizontal.baseline}})
+    // this.saveToStorage({
+    //   verticalRed,
+    //   verticalBlue,
+    //   verticalGreen,
+    //   verticalOpacity,
+    //   verticalBaseline,
+    //   horizontalRed,
+    //   horizontalBlue,
+    //   horizontalGreen,
+    //   horizontalOpacity,
+    //   horizontalBaseline
+    // });
 
     // Tells extension we're done updating
     chrome.runtime.sendMessage({ status: "update" });
