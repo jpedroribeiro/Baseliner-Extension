@@ -14,11 +14,7 @@ window.Baseliner = {
       document.head.appendChild(styleTag);
     }
 
-    // TODO
-    // this.loadUpFromStorage();
-
-    // Tells extension we're ready
-    chrome.runtime.sendMessage({ status: "ready" });
+    this.startUp();
   },
 
   generateStyles: function(
@@ -89,29 +85,35 @@ window.Baseliner = {
       sheet.insertRule(styleRule);
     });
 
+    // Saves to storage
+    // TODO
+    // this.saveToStorage({verticalRed:${vertical.red}, verticalBlue:${vertical.blue}, verticalGreen:${vertical.green}, verticalOpacity: ${vertical.opacity} , verticalBaseline: ${vertical.baseline}, horizontalRed: ${horizontal.red}, horizontalBlue: ${horizontal.blue}, horizontalGreen: ${horizontal.green}, horizontalOpacity: ${horizontal.opacity} ,horizontalBaseline: ${horizontal.baseline}})
+
     // Tells extension we're done updating
-    chrome.runtime.sendMessage({ status: "updated" });
+    chrome.runtime.sendMessage({ status: "update" });
   },
 
-  // TODO
-  loadUpFromStorage: function() {
+  startUp: function() {
     const url = window.location.origin;
 
+    // Check storage first
     chrome.storage.sync.get(url, data => {
       const item = data[url];
       if (item) {
-        // All done!
+        // We got data from previous session
+        chrome.runtime.sendMessage({ status: "load", storage: item });
+
         console.log(
           "%c Baseliner loaded from Storage 🗄 ",
           "background: #DFDFDF; color: #209C39"
         );
+      } else {
+        // We're ready to roll with default values
+        chrome.runtime.sendMessage({ status: "ready" });
       }
-      // Tells extension we got data
-      chrome.runtime.sendMessage({ data: item });
     });
   },
 
-  // TODO
   saveToStorage: function(objOfValues) {
     const url = window.location.origin;
     const save = {};

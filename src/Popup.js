@@ -51,11 +51,18 @@ function Popup() {
       chrome.runtime.onMessage.addListener(function(message) {
         switch (message?.status) {
           case "ready":
+            setStatusLabel("Baseliner extension ready");
             setIsFirstRun(false);
             break;
 
-          case "updated":
+          case "update":
             setStatusLabel("Baseliner styles updated");
+            break;
+
+          case "load":
+            setStatusLabel("Baseliner loaded from storage");
+            setIsFirstRun(false);
+            console.log({ storage: message.storage });
             break;
 
           default:
@@ -67,7 +74,7 @@ function Popup() {
   }, [ENV_EXTENSION]);
 
   React.useEffect(() => {
-    /* Note: renders based on UI changes */
+    /* Note: renders based on UI changes OR when isFirstRun updates */
     if (ENV_EXTENSION && !isFirstRun) {
       const colourVerticalRGB = hexToRGB(colourVertical);
       const vertical = {
