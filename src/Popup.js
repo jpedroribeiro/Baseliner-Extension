@@ -2,6 +2,7 @@
 import React from "react";
 import "./Popup.css";
 import hexToRGB from "./hexToRGB";
+import rgbToHex from "./rgbToHex";
 
 function Popup() {
   const ENV_EXTENSION = chrome && chrome.tabs;
@@ -62,7 +63,26 @@ function Popup() {
           case "load":
             setStatusLabel("Baseliner loaded from storage");
             setHasStartedUp(true);
-            console.log({ storage: message.storage });
+
+            // TODO from here
+            // setColourHorizontal(
+            //   rgbToHex(
+            //     message.storage.horizontalRed,
+            //     message.storage.horizontalGreen,
+            //     message.storage.horizontalBlue
+            //   )
+            // );
+            // setOpacityHorizontal(message.storage.horizontalOpacity);
+            // setBaselineHorizontal(message.storage.horizontalBaseline);
+            // setColourHorizontal(
+            //   rgbToHex(
+            //     message.storage.verticalRed,
+            //     message.storage.verticalGreen,
+            //     message.storage.verticalBlue
+            //   )
+            // );
+            // setOpacityHorizontal(message.storage.verticalOpacity);
+            // setBaselineHorizontal(message.storage.verticalBaseline);
             break;
 
           default:

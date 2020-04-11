@@ -75,11 +75,6 @@ window.Baseliner = {
       while (sheet.cssRules.length > 0) {
         sheet.deleteRule(0);
       }
-      // Array.from(sheet.cssRules).forEach((rule, index) => {
-      //   if (index < Array.from(sheet.cssRules).length) {
-      //     sheet.deleteRule(index);
-      //   }
-      // });
     }
 
     // Apply new styles
@@ -88,18 +83,18 @@ window.Baseliner = {
     });
 
     // Saves to storage
-    // this.saveToStorage({
-    //   verticalRed,
-    //   verticalBlue,
-    //   verticalGreen,
-    //   verticalOpacity,
-    //   verticalBaseline,
-    //   horizontalRed,
-    //   horizontalBlue,
-    //   horizontalGreen,
-    //   horizontalOpacity,
-    //   horizontalBaseline
-    // });
+    this.saveToStorage({
+      verticalRed,
+      verticalBlue,
+      verticalGreen,
+      verticalOpacity,
+      verticalBaseline,
+      horizontalRed,
+      horizontalBlue,
+      horizontalGreen,
+      horizontalOpacity,
+      horizontalBaseline
+    });
 
     // Tells extension we're done updating
     chrome.runtime.sendMessage({ status: "update" });
@@ -117,7 +112,8 @@ window.Baseliner = {
 
         console.log(
           "%c Baseliner loaded from Storage 🗄 ",
-          "background: #DFDFDF; color: #209C39"
+          "background: #DFDFDF; color: #209C39",
+          item
         );
       } else {
         // We're ready to roll with default values
@@ -135,7 +131,8 @@ window.Baseliner = {
       chrome.storage.sync.set(save, function() {
         console.log(
           "%c Baseliner data saved to storage 💾",
-          "background: #DFDFDF; color: #209C39"
+          "background: #DFDFDF; color: #209C39",
+          objOfValues
         );
       });
     }

@@ -1,7 +1,7 @@
 WIP
 
 # TODO
-(3) Load and save to storage
+(3) Save & load from storage: async might be preventing current logic
 (4) Nicer UI design
 (5) Add Typescript
 (6) Other features as per legacy version like service workers etc

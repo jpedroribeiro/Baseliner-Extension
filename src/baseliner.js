@@ -83,6 +83,7 @@ window.Baseliner = {
     });
 
     // Saves to storage
+    // TODO
     // this.saveToStorage({
     //   verticalRed,
     //   verticalBlue,
@@ -112,7 +113,8 @@ window.Baseliner = {
 
         console.log(
           "%c Baseliner loaded from Storage 🗄 ",
-          "background: #DFDFDF; color: #209C39"
+          "background: #DFDFDF; color: #209C39",
+          item
         );
       } else {
         // We're ready to roll with default values
@@ -130,7 +132,8 @@ window.Baseliner = {
       chrome.storage.sync.set(save, function() {
         console.log(
           "%c Baseliner data saved to storage 💾",
-          "background: #DFDFDF; color: #209C39"
+          "background: #DFDFDF; color: #209C39",
+          objOfValues
         );
       });
     }
