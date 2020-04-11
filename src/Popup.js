@@ -5,7 +5,7 @@ import hexToRGB from "./hexToRGB";
 
 function Popup() {
   const ENV_EXTENSION = chrome && chrome.tabs;
-  const [isFirstRun, setIsFirstRun] = React.useState(true);
+  const [hasStartedUp, setHasStartedUp] = React.useState(false);
   const [statusLabel, setStatusLabel] = React.useState("loading...");
   const [colourVertical, setColourVertical] = React.useState("#ff0000");
   const [opacityVertical, setOpacityVertical] = React.useState(100);
@@ -52,7 +52,7 @@ function Popup() {
         switch (message?.status) {
           case "ready":
             setStatusLabel("Baseliner extension ready");
-            setIsFirstRun(false);
+            setHasStartedUp(true);
             break;
 
           case "update":
@@ -61,7 +61,7 @@ function Popup() {
 
           case "load":
             setStatusLabel("Baseliner loaded from storage");
-            setIsFirstRun(false);
+            setHasStartedUp(true);
             console.log({ storage: message.storage });
             break;
 
@@ -74,8 +74,8 @@ function Popup() {
   }, [ENV_EXTENSION]);
 
   React.useEffect(() => {
-    /* Note: renders based on UI changes OR when isFirstRun updates */
-    if (ENV_EXTENSION && !isFirstRun) {
+    /* Note: renders based on UI changes OR when it has started up */
+    if (ENV_EXTENSION && hasStartedUp) {
       const colourVerticalRGB = hexToRGB(colourVertical);
       const vertical = {
         red: colourVerticalRGB.r,
@@ -105,7 +105,7 @@ function Popup() {
       // });
     }
   }, [
-    isFirstRun,
+    hasStartedUp,
     colourVertical,
     colourHorizontal,
     opacityVertical,
