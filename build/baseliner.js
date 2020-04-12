@@ -51,18 +51,18 @@ window.Baseliner = {
         right: 0;
         bottom: 0;
         left: 0;
-        background: linear-gradient(
+        background: linear-gradient(to right,
             rgba(${verticalRed}, ${verticalGreen}, ${verticalBlue}, ${verticalOpacity /
         100}) 1px,
             transparent 1px
           )
-          left top / 100% ${verticalBaseline}px repeat-y,
+          left top / ${verticalBaseline}px 100% repeat-x,
           linear-gradient(
-            to right, rgba(${horizontalRed}, ${horizontalGreen}, ${horizontalBlue}, ${horizontalOpacity /
+            rgba(${horizontalRed}, ${horizontalGreen}, ${horizontalBlue}, ${horizontalOpacity /
         100}) 1px,
             transparent 1px
           )
-          left top / ${horizontalBaseline}px 100% repeat-x;
+          left top / 100% ${horizontalBaseline}px repeat-y;
         top: ${baselinerPaddingTop}px;
       }`,
       `body {
@@ -83,19 +83,18 @@ window.Baseliner = {
     });
 
     // Saves to storage
-    // TODO
-    // this.saveToStorage({
-    //   verticalRed,
-    //   verticalBlue,
-    //   verticalGreen,
-    //   verticalOpacity,
-    //   verticalBaseline,
-    //   horizontalRed,
-    //   horizontalBlue,
-    //   horizontalGreen,
-    //   horizontalOpacity,
-    //   horizontalBaseline
-    // });
+    this.saveToStorage({
+      verticalRed,
+      verticalBlue,
+      verticalGreen,
+      verticalOpacity,
+      verticalBaseline,
+      horizontalRed,
+      horizontalBlue,
+      horizontalGreen,
+      horizontalOpacity,
+      horizontalBaseline
+    });
 
     // Tells extension we're done updating
     chrome.runtime.sendMessage({ status: "update" });

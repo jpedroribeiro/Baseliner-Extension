@@ -2,6 +2,7 @@ WIP
 
 # TODO
 (3) Save & load from storage: async might be preventing current logic
+(3.5) Enable/Disable should null the values on save
 (4) Nicer UI design
 (5) Add Typescript
 (6) Other features as per legacy version like service workers etc
