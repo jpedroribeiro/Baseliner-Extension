@@ -61,38 +61,64 @@ function Popup() {
       // Start listening to messages
       chrome.runtime.onMessage.addListener(function(message) {
         switch (message?.status) {
-          case "ready":
-            setStatusLabel("Baseliner extension ready");
+          case "default":
+            setStatusLabel("Baseliner extension ready with defaults");
             setHasStartedUp(true);
             break;
 
           case "update":
             setStatusLabel("Baseliner styles updated");
+            setHasStartedUp(true);
+
+            // Save to storage
+            chrome.tabs.executeScript({
+              code: `Baseliner.saveToStorage({
+                verticalRed: ${message.objOfValues.verticalRed},
+                verticalBlue: ${message.objOfValues.verticalBlue},
+                verticalGreen: ${message.objOfValues.verticalGreen},
+                verticalOpacity: ${message.objOfValues.verticalOpacity},
+                verticalBaseline: ${message.objOfValues.verticalBaseline},
+                horizontalRed: ${message.objOfValues.horizontalRed},
+                horizontalBlue: ${message.objOfValues.horizontalBlue},
+                horizontalGreen: ${message.objOfValues.horizontalGreen},
+                horizontalOpacity: ${message.objOfValues.horizontalOpacity},
+                horizontalBaseline: ${message.objOfValues.horizontalBaseline}
+              })`
+            });
             break;
 
           case "load":
             setStatusLabel("Baseliner loaded from storage");
-            setHasStartedUp(true);
+            const {
+              storage: {
+                verticalRed,
+                verticalBlue,
+                verticalGreen,
+                verticalOpacity,
+                verticalBaseline,
+                horizontalRed,
+                horizontalBlue,
+                horizontalGreen,
+                horizontalOpacity,
+                horizontalBaseline
+              }
+            } = message;
 
-            // TODO from here
-            // setColourHorizontal(
-            //   rgbToHex(
-            //     message.storage.horizontalRed,
-            //     message.storage.horizontalGreen,
-            //     message.storage.horizontalBlue
-            //   )
-            // );
-            // setOpacityHorizontal(message.storage.horizontalOpacity);
-            // setBaselineHorizontal(message.storage.horizontalBaseline);
-            // setColourHorizontal(
-            //   rgbToHex(
-            //     message.storage.verticalRed,
-            //     message.storage.verticalGreen,
-            //     message.storage.verticalBlue
-            //   )
-            // );
-            // setOpacityHorizontal(message.storage.verticalOpacity);
-            // setBaselineHorizontal(message.storage.verticalBaseline);
+            setColourHorizontal(
+              rgbToHex(horizontalRed, horizontalGreen, horizontalBlue)
+            );
+            setOpacityHorizontal(horizontalOpacity);
+            setBaselineHorizontal(horizontalBaseline);
+            setColourVertical(
+              rgbToHex(verticalRed, verticalGreen, verticalBlue)
+            );
+            setOpacityVertical(verticalOpacity);
+            setBaselineVertical(verticalBaseline);
+
+            // Generate and apply styles
+            chrome.tabs.executeScript({
+              code: `Baseliner.generateStyles(${verticalRed}, ${verticalBlue}, ${verticalGreen}, ${verticalOpacity} ,${verticalBaseline}, ${horizontalRed}, ${horizontalBlue}, ${horizontalGreen}, ${horizontalOpacity} ,${horizontalBaseline})`
+            });
             break;
 
           default:
@@ -127,12 +153,6 @@ function Popup() {
       chrome.tabs.executeScript({
         code: `Baseliner.generateStyles(${vertical.red}, ${vertical.blue}, ${vertical.green}, ${vertical.opacity} ,${vertical.baseline}, ${horizontal.red}, ${horizontal.blue}, ${horizontal.green}, ${horizontal.opacity} ,${horizontal.baseline})`
       });
-
-      // Save to storage
-      // TODO on hold for now
-      // chrome.tabs.executeScript({
-      //   code: `Baseliner.saveToStorage({verticalRed:${vertical.red}, verticalBlue:${vertical.blue}, verticalGreen:${vertical.green}, verticalOpacity: ${vertical.opacity} , verticalBaseline: ${vertical.baseline}, horizontalRed: ${horizontal.red}, horizontalBlue: ${horizontal.blue}, horizontalGreen: ${horizontal.green}, horizontalOpacity: ${horizontal.opacity} ,horizontalBaseline: ${horizontal.baseline}})`
-      // });
     }
   }, [
     hasStartedUp,

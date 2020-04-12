@@ -82,22 +82,22 @@ window.Baseliner = {
       sheet.insertRule(styleRule);
     });
 
-    // Saves to storage
-    this.saveToStorage({
-      verticalRed,
-      verticalBlue,
-      verticalGreen,
-      verticalOpacity,
-      verticalBaseline,
-      horizontalRed,
-      horizontalBlue,
-      horizontalGreen,
-      horizontalOpacity,
-      horizontalBaseline
-    });
-
     // Tells extension we're done updating
-    chrome.runtime.sendMessage({ status: "update" });
+    chrome.runtime.sendMessage({
+      status: "update",
+      objOfValues: {
+        verticalRed,
+        verticalBlue,
+        verticalGreen,
+        verticalOpacity,
+        verticalBaseline,
+        horizontalRed,
+        horizontalBlue,
+        horizontalGreen,
+        horizontalOpacity,
+        horizontalBaseline
+      }
+    });
   },
 
   startUp: function() {
@@ -117,7 +117,7 @@ window.Baseliner = {
         );
       } else {
         // We're ready to roll with default values
-        chrome.runtime.sendMessage({ status: "ready" });
+        chrome.runtime.sendMessage({ status: "default" });
       }
     });
   },
