@@ -213,7 +213,7 @@ function Popup() {
   return (
     <div className="Popup">
       <p>Status: {statusLabel}</p>
-      <div className={"grid vertical"}>
+      <div className={`grid vertical${enableVertical ? "" : " disabled"}`}>
         <h1>Vertical</h1>
         <div className={"row"}>
           <label htmlFor={"enableVertical"}>Enable</label>
@@ -228,6 +228,7 @@ function Popup() {
         <div className={"row"}>
           <label htmlFor={"colourVertical"}>Colour</label>
           <input
+            disabled={!enableVertical}
             type="color"
             id="colourVertical"
             value={colourVertical}
@@ -239,6 +240,7 @@ function Popup() {
         <div className={"row"}>
           <label htmlFor={"opacityVertical"}>Opacity</label>
           <input
+            disabled={!enableVertical}
             type="range"
             min={0}
             max={100}
@@ -253,6 +255,7 @@ function Popup() {
         <div className={"row"}>
           <label htmlFor={"baselineVertical"}>Baseline</label>
           <input
+            disabled={!enableVertical}
             type="number"
             min={2}
             id="baselineVertical"
@@ -262,7 +265,7 @@ function Popup() {
           />
         </div>
       </div>
-      <div className={"grid horizontal"}>
+      <div className={`grid horizontal${enableHorizontal ? "" : " disabled"}`}>
         <h1>Horizontal</h1>
         <div className={"row"}>
           <label htmlFor={"enableHorizontal"}>Enable</label>
@@ -277,6 +280,7 @@ function Popup() {
         <div className={"row"}>
           <label htmlFor={"colourHorizontal"}>Colour</label>
           <input
+            disabled={!enableHorizontal}
             type="color"
             id="colourHorizontal"
             value={colourHorizontal}
@@ -288,6 +292,7 @@ function Popup() {
         <div className={"row"}>
           <label htmlFor={"opacityHorizontal"}>Opacity</label>
           <input
+            disabled={!enableHorizontal}
             type="range"
             min={0}
             max={100}
@@ -302,6 +307,7 @@ function Popup() {
         <div className={"row"}>
           <label htmlFor={"baselineHorizontal"}>Baseline</label>
           <input
+            disabled={!enableHorizontal}
             type="number"
             min={2}
             id="baselineHorizontal"
