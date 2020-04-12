@@ -83,18 +83,19 @@ window.Baseliner = {
     });
 
     // Saves to storage
-    this.saveToStorage({
-      verticalRed,
-      verticalBlue,
-      verticalGreen,
-      verticalOpacity,
-      verticalBaseline,
-      horizontalRed,
-      horizontalBlue,
-      horizontalGreen,
-      horizontalOpacity,
-      horizontalBaseline
-    });
+    // TODO
+    // this.saveToStorage({
+    //   verticalRed,
+    //   verticalBlue,
+    //   verticalGreen,
+    //   verticalOpacity,
+    //   verticalBaseline,
+    //   horizontalRed,
+    //   horizontalBlue,
+    //   horizontalGreen,
+    //   horizontalOpacity,
+    //   horizontalBaseline
+    // });
 
     // Tells extension we're done updating
     chrome.runtime.sendMessage({ status: "update" });

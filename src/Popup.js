@@ -8,13 +8,23 @@ function Popup() {
   const ENV_EXTENSION = chrome && chrome.tabs;
   const [hasStartedUp, setHasStartedUp] = React.useState(false);
   const [statusLabel, setStatusLabel] = React.useState("loading...");
+  const [enableVertical, setEnableVertical] = React.useState(true);
   const [colourVertical, setColourVertical] = React.useState("#ff0000");
   const [opacityVertical, setOpacityVertical] = React.useState(100);
   const [baselineVertical, setBaselineVertical] = React.useState(8);
+  const [enableHorizontal, setEnableHorizontal] = React.useState(true);
   const [colourHorizontal, setColourHorizontal] = React.useState("#00ff00");
   const [opacityHorizontal, setOpacityHorizontal] = React.useState(100);
   const [baselineHorizontal, setBaselineHorizontal] = React.useState(8);
 
+  function handleEnable(e) {
+    const grid = e.currentTarget.dataset.grid;
+    if (grid === "vertical") {
+      setEnableVertical(e.currentTarget.value);
+    } else {
+      setEnableHorizontal(e.currentTarget.value);
+    }
+  }
   function handleColour(e) {
     const grid = e.currentTarget.dataset.grid;
     if (grid === "vertical") {
@@ -140,6 +150,16 @@ function Popup() {
       <div className={"grid vertical"}>
         <h1>Vertical</h1>
         <div className={"row"}>
+          <label htmlFor={"enableVertical"}>Enable</label>
+          <input
+            type="checkbox"
+            id="enableVertical"
+            checked={enableVertical}
+            data-grid="vertical"
+            onChange={handleEnable}
+          />
+        </div>
+        <div className={"row"}>
           <label htmlFor={"colourVertical"}>Colour</label>
           <input
             type="color"
@@ -178,6 +198,16 @@ function Popup() {
       </div>
       <div className={"grid horizontal"}>
         <h1>Horizontal</h1>
+        <div className={"row"}>
+          <label htmlFor={"enableHorizontal"}>Enable</label>
+          <input
+            type="checkbox"
+            id="enableHorizontal"
+            checked={enableHorizontal}
+            data-grid="horizontal"
+            onChange={handleEnable}
+          />
+        </div>
         <div className={"row"}>
           <label htmlFor={"colourHorizontal"}>Colour</label>
           <input
