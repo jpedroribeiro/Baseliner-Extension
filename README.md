@@ -1,7 +1,7 @@
 WIP
 
 # TODO
-(3.2) Enable/Disable should null the values on save
+(3) Enable/Disable UI
 (4) Nicer UI design
 (5) Add Typescript
 (6) Other features as per legacy version like service workers etc

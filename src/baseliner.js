@@ -23,11 +23,13 @@ window.Baseliner = {
     verticalGreen,
     verticalOpacity,
     verticalBaseline,
+    verticalEnable,
     horizontalRed,
     horizontalBlue,
     horizontalGreen,
     horizontalOpacity,
-    horizontalBaseline
+    horizontalBaseline,
+    horizontalEnable
   ) {
     const baselinerPaddingTop = 0; // Note: disabling this feature for now
     const sheet = document.getElementById(this.styleTagID).sheet;
@@ -52,14 +54,16 @@ window.Baseliner = {
         bottom: 0;
         left: 0;
         background: linear-gradient(to right,
-            rgba(${verticalRed}, ${verticalGreen}, ${verticalBlue}, ${verticalOpacity /
-        100}) 1px,
+            rgba(${verticalRed}, ${verticalGreen}, ${verticalBlue}, ${
+        verticalEnable ? verticalOpacity / 100 : 0
+      }) 1px,
             transparent 1px
           )
           left top / ${verticalBaseline}px 100% repeat-x,
           linear-gradient(
-            rgba(${horizontalRed}, ${horizontalGreen}, ${horizontalBlue}, ${horizontalOpacity /
-        100}) 1px,
+            rgba(${horizontalRed}, ${horizontalGreen}, ${horizontalBlue}, ${
+        horizontalEnable ? horizontalOpacity / 100 : 0
+      }) 1px,
             transparent 1px
           )
           left top / 100% ${horizontalBaseline}px repeat-y;
@@ -91,11 +95,13 @@ window.Baseliner = {
         verticalGreen,
         verticalOpacity,
         verticalBaseline,
+        verticalEnable,
         horizontalRed,
         horizontalBlue,
         horizontalGreen,
         horizontalOpacity,
-        horizontalBaseline
+        horizontalBaseline,
+        horizontalEnable
       }
     });
   },
@@ -106,7 +112,7 @@ window.Baseliner = {
     // Check storage first
     chrome.storage.sync.get(url, data => {
       const item = data[url];
-      console.log(data);
+
       if (item) {
         // We got data from previous session
         chrome.runtime.sendMessage({ status: "load", storage: item });

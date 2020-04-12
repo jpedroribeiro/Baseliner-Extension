@@ -19,10 +19,11 @@ function Popup() {
 
   function handleEnable(e) {
     const grid = e.currentTarget.dataset.grid;
+    const checked = e.currentTarget.checked;
     if (grid === "vertical") {
-      setEnableVertical(e.currentTarget.value);
+      setEnableVertical(checked);
     } else {
-      setEnableHorizontal(e.currentTarget.value);
+      setEnableHorizontal(checked);
     }
   }
   function handleColour(e) {
@@ -85,11 +86,13 @@ function Popup() {
                 verticalGreen: ${message.objOfValues.verticalGreen},
                 verticalOpacity: ${message.objOfValues.verticalOpacity},
                 verticalBaseline: ${message.objOfValues.verticalBaseline},
+                verticalEnable: ${message.objOfValues.verticalEnable},
                 horizontalRed: ${message.objOfValues.horizontalRed},
                 horizontalBlue: ${message.objOfValues.horizontalBlue},
                 horizontalGreen: ${message.objOfValues.horizontalGreen},
                 horizontalOpacity: ${message.objOfValues.horizontalOpacity},
-                horizontalBaseline: ${message.objOfValues.horizontalBaseline}
+                horizontalBaseline: ${message.objOfValues.horizontalBaseline},
+                horizontalEnable: ${message.objOfValues.horizontalEnable}
               })`
             });
             break;
@@ -103,28 +106,44 @@ function Popup() {
                 verticalGreen,
                 verticalOpacity,
                 verticalBaseline,
+                verticalEnable,
                 horizontalRed,
                 horizontalBlue,
                 horizontalGreen,
                 horizontalOpacity,
-                horizontalBaseline
+                horizontalBaseline,
+                horizontalEnable
               }
             } = message;
-
             setColourHorizontal(
               rgbToHex(horizontalRed, horizontalGreen, horizontalBlue)
             );
             setOpacityHorizontal(horizontalOpacity);
             setBaselineHorizontal(horizontalBaseline);
+            setEnableHorizontal(horizontalEnable);
             setColourVertical(
               rgbToHex(verticalRed, verticalGreen, verticalBlue)
             );
             setOpacityVertical(verticalOpacity);
             setBaselineVertical(verticalBaseline);
+            setEnableVertical(verticalEnable);
 
             // Generate and apply styles
             chrome.tabs.executeScript({
-              code: `Baseliner.generateStyles(${verticalRed}, ${verticalBlue}, ${verticalGreen}, ${verticalOpacity} ,${verticalBaseline}, ${horizontalRed}, ${horizontalBlue}, ${horizontalGreen}, ${horizontalOpacity} ,${horizontalBaseline})`
+              code: `Baseliner.generateStyles(
+                ${verticalRed},
+                ${verticalBlue},
+                ${verticalGreen},
+                ${verticalOpacity},
+                ${verticalBaseline},
+                ${verticalEnable},
+                ${horizontalRed},
+                ${horizontalBlue},
+                ${horizontalGreen},
+                ${horizontalOpacity},
+                ${horizontalBaseline},
+                ${horizontalEnable}
+              )`
             });
             break;
 
@@ -133,8 +152,7 @@ function Popup() {
             break;
 
           default:
-            // Note: needed at all?
-            console.error("No recognized status message", message);
+            console.error("Unrecognized status message", message);
         }
       });
     }
@@ -149,7 +167,8 @@ function Popup() {
         green: colourVerticalRGB.g,
         blue: colourVerticalRGB.b,
         opacity: opacityVertical,
-        baseline: baselineVertical
+        baseline: baselineVertical,
+        enable: enableVertical
       };
       const colourHorizontalRGB = hexToRGB(colourHorizontal);
       const horizontal = {
@@ -157,12 +176,26 @@ function Popup() {
         green: colourHorizontalRGB.g,
         blue: colourHorizontalRGB.b,
         opacity: opacityHorizontal,
-        baseline: baselineHorizontal
+        baseline: baselineHorizontal,
+        enable: enableHorizontal
       };
 
       // Generate and apply styles
       chrome.tabs.executeScript({
-        code: `Baseliner.generateStyles(${vertical.red}, ${vertical.blue}, ${vertical.green}, ${vertical.opacity} ,${vertical.baseline}, ${horizontal.red}, ${horizontal.blue}, ${horizontal.green}, ${horizontal.opacity} ,${horizontal.baseline})`
+        code: `Baseliner.generateStyles(
+          ${vertical.red}, 
+          ${vertical.blue}, 
+          ${vertical.green}, 
+          ${vertical.opacity},
+          ${vertical.baseline}, 
+          ${vertical.enable}, 
+          ${horizontal.red}, 
+          ${horizontal.blue}, 
+          ${horizontal.green}, 
+          ${horizontal.opacity},
+          ${horizontal.baseline},
+          ${horizontal.enable}
+        )`
       });
     }
   }, [
@@ -172,7 +205,9 @@ function Popup() {
     opacityVertical,
     opacityHorizontal,
     baselineVertical,
-    baselineHorizontal
+    baselineHorizontal,
+    enableVertical,
+    enableHorizontal
   ]);
 
   return (
