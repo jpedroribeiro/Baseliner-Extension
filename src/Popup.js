@@ -52,6 +52,13 @@ function Popup() {
     }
   }
 
+  function handleRemoveButtonClick(e) {
+    e.preventDefault();
+    chrome.tabs.executeScript({
+      code: `Baseliner.removeBaseliner()`
+    });
+  }
+
   React.useEffect(() => {
     /* Note: renders based on first load */
     if (ENV_EXTENSION) {
@@ -119,6 +126,10 @@ function Popup() {
             chrome.tabs.executeScript({
               code: `Baseliner.generateStyles(${verticalRed}, ${verticalBlue}, ${verticalGreen}, ${verticalOpacity} ,${verticalBaseline}, ${horizontalRed}, ${horizontalBlue}, ${horizontalGreen}, ${horizontalOpacity} ,${horizontalBaseline})`
             });
+            break;
+
+          case "removed":
+            setStatusLabel("Baseliner removed");
             break;
 
           default:
@@ -264,6 +275,11 @@ function Popup() {
             onChange={handleBaseline}
           />
         </div>
+      </div>
+      <div>
+        <button className={`buttonRemove`} onClick={handleRemoveButtonClick}>
+          Remove Baseliner
+        </button>
       </div>
     </div>
   );

@@ -106,6 +106,7 @@ window.Baseliner = {
     // Check storage first
     chrome.storage.sync.get(url, data => {
       const item = data[url];
+      console.log(data);
       if (item) {
         // We got data from previous session
         chrome.runtime.sendMessage({ status: "load", storage: item });
@@ -130,12 +131,30 @@ window.Baseliner = {
     if (!!url) {
       chrome.storage.sync.set(save, function() {
         console.log(
-          "%c Baseliner data saved to storage 💾",
+          `%c Baseliner ${
+            objOfValues ? "data saved to storage 💾" : " storage cleared 🗑"
+          }`,
           "background: #DFDFDF; color: #209C39",
           objOfValues
         );
       });
     }
+  },
+
+  removeBaseliner: function() {
+    const sheet = document.getElementById(this.styleTagID).sheet;
+
+    // Remove styles
+    if (Array.from(sheet.cssRules).length > 0) {
+      while (sheet.cssRules.length > 0) {
+        sheet.deleteRule(0);
+      }
+    }
+
+    // Clears storage
+    this.saveToStorage(null);
+
+    chrome.runtime.sendMessage({ status: "removed" });
   }
 };
 
