@@ -199,6 +199,7 @@ function Popup() {
       });
     }
   }, [
+    ENV_EXTENSION,
     hasStartedUp,
     colourVertical,
     colourHorizontal,
@@ -211,10 +212,13 @@ function Popup() {
   ]);
 
   return (
-    <div className="Popup">
-      <p>Status: {statusLabel}</p>
+    <div className="popup">
+      <h1>Baseliner</h1>
+      <p className={"status"}>
+        <b>Status:</b> {statusLabel}
+      </p>
       <div className={`grid vertical${enableVertical ? "" : " disabled"}`}>
-        <h1>Vertical</h1>
+        <h2>Vertical</h2>
         <div className={"row"}>
           <label htmlFor={"enableVertical"}>Enable</label>
           <input
@@ -266,7 +270,7 @@ function Popup() {
         </div>
       </div>
       <div className={`grid horizontal${enableHorizontal ? "" : " disabled"}`}>
-        <h1>Horizontal</h1>
+        <h2>Horizontal</h2>
         <div className={"row"}>
           <label htmlFor={"enableHorizontal"}>Enable</label>
           <input
@@ -318,8 +322,17 @@ function Popup() {
         </div>
       </div>
       <div>
-        <button className={`buttonRemove`} onClick={handleRemoveButtonClick}>
+        <button
+          className={`button buttonRemove`}
+          onClick={handleRemoveButtonClick}
+        >
           Remove Baseliner
+        </button>
+        <button
+          className={`button buttonContrib`}
+          onClick={handleRemoveButtonClick}
+        >
+          Contribute
         </button>
       </div>
     </div>

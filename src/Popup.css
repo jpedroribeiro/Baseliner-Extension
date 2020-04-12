@@ -1,33 +1,76 @@
-.App {
-  text-align: center;
+@font-face {
+    font-family: "Baloo";
+    src: url("/public/Baloo Tamma 2.woff2") format("woff2"),
+    url("/public/Baloo Tamma 2.ttf") format("ttf");
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+:root {
+    --darkPurple: #23192F;
+    --brightRed: #E95171;
+    --eggShell: #FFFEFC;
+    --rustyIron: #A18396;
+    --lightGrey: #EEE;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+    color: var(--darkPurple);
+    background-color: var(--eggShell);
+    font-size: 14px;
 }
 
-.App-link {
-  color: #61dafb;
+h1 {
+    background-color: var(--darkPurple);
+    font-family: Baloo, sans-serif;
+    color: var(--brightRed);
+    font-size: 18px;
+    padding: 4px 8px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.popup {
+}
+
+.status {
+    background-color: var(--lightGrey);
+    padding: 8px;
+    font-size: 12px;
+}
+
+.grid {
+    margin: 12px 4px;
+    padding: 12px 8px 4px;
+    border: 1px solid var(--lightGrey);
+    position: relative;
+    font-size: 12px;
+}
+
+h2 {
+    font-size: 14px;
+    position: absolute;
+    top: -8px;
+    left: 2px;
+    background-color: var(--eggShell);
+    padding: 0 4px;
+}
+
+.grid.vertical {
+
+}
+
+.grid.horizontal {
+
+}
+
+.button {
+    cursor: pointer;
+    border: none;
+    background: var(--darkPurple);
+    color: var(--eggShell);
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    line-height: 20px;
+}
+
+.buttonRemove {
+    background: var(--brightRed);
 }
