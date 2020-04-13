@@ -12,7 +12,7 @@ function Popup() {
   const [colourVertical, setColourVertical] = React.useState("#ff0000");
   const [opacityVertical, setOpacityVertical] = React.useState(100);
   const [baselineVertical, setBaselineVertical] = React.useState(8);
-  const [enableHorizontal, setEnableHorizontal] = React.useState(true);
+  const [enableHorizontal, setEnableHorizontal] = React.useState(false);
   const [colourHorizontal, setColourHorizontal] = React.useState("#00ff00");
   const [opacityHorizontal, setOpacityHorizontal] = React.useState(100);
   const [baselineHorizontal, setBaselineHorizontal] = React.useState(8);
@@ -51,13 +51,6 @@ function Popup() {
     } else {
       setOpacityHorizontal(e.currentTarget.value);
     }
-  }
-
-  function handleRemoveButtonClick(e) {
-    e.preventDefault();
-    chrome.tabs.executeScript({
-      code: `Baseliner.removeBaseliner()`
-    });
   }
 
   React.useEffect(() => {
@@ -213,14 +206,20 @@ function Popup() {
 
   return (
     <div className="popup">
-      <h1>Baseliner</h1>
+      <h1>
+        <a
+          href={"https://github.com/jpedroribeiro/Baseliner/"}
+          target={"_blank"}
+        >
+          Baseliner
+        </a>
+      </h1>
       <p className={"status"}>
         <b>Status:</b> {statusLabel}
       </p>
       <div className={`grid vertical${enableVertical ? "" : " disabled"}`}>
         <h2>Vertical</h2>
-        <div className={"row"}>
-          <label htmlFor={"enableVertical"}>Enable</label>
+        <div className={"row checkbox"}>
           <input
             type="checkbox"
             id="enableVertical"
@@ -228,6 +227,7 @@ function Popup() {
             data-grid="vertical"
             onChange={handleEnable}
           />
+          <label htmlFor={"enableVertical"}>Enable</label>
         </div>
         <div className={"row"}>
           <label htmlFor={"colourVertical"}>Colour</label>
@@ -271,8 +271,7 @@ function Popup() {
       </div>
       <div className={`grid horizontal${enableHorizontal ? "" : " disabled"}`}>
         <h2>Horizontal</h2>
-        <div className={"row"}>
-          <label htmlFor={"enableHorizontal"}>Enable</label>
+        <div className={"row checkbox"}>
           <input
             type="checkbox"
             id="enableHorizontal"
@@ -280,6 +279,7 @@ function Popup() {
             data-grid="horizontal"
             onChange={handleEnable}
           />
+          <label htmlFor={"enableHorizontal"}>Enable</label>
         </div>
         <div className={"row"}>
           <label htmlFor={"colourHorizontal"}>Colour</label>
@@ -321,19 +321,23 @@ function Popup() {
           />
         </div>
       </div>
-      <div>
-        <button
-          className={`button buttonRemove`}
-          onClick={handleRemoveButtonClick}
+      <div className={"footer"}>
+        <a
+          href={"https://github.com/jpedroribeiro/Baseliner/issues"}
+          target={"_blank"}
+          className={``}
+          title={"Removes Baseliner from the page"}
         >
-          Remove Baseliner
-        </button>
-        <button
-          className={`button buttonContrib`}
-          onClick={handleRemoveButtonClick}
+          Feedback?
+        </a>
+        <a
+          href={"https://github.com/jpedroribeiro/Baseliner/issues"}
+          target={"_blank"}
+          className={``}
+          title={"Removes Baseliner from the page"}
         >
-          Contribute
-        </button>
+          Support Us
+        </a>
       </div>
     </div>
   );

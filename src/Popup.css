@@ -1,12 +1,16 @@
 @font-face {
-    font-family: "Baloo";
-    src: url("/public/Baloo Tamma 2.woff2") format("woff2"),
-    url("/public/Baloo Tamma 2.ttf") format("ttf");
+    font-family: 'Dosis';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url(./Dosis.woff) format('woff');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 :root {
     --darkPurple: #23192F;
     --brightRed: #E95171;
+    --brightRedDark: #c64560;
     --eggShell: #FFFEFC;
     --rustyIron: #A18396;
     --lightGrey: #EEE;
@@ -20,13 +24,18 @@ body {
 
 h1 {
     background-color: var(--darkPurple);
-    font-family: Baloo, sans-serif;
-    color: var(--brightRed);
+    padding: 8px;
+}
+
+h1 a {
+    font-family: Dosis, sans-serif;
     font-size: 18px;
-    padding: 4px 8px;
+    text-decoration: none;
+    color: var(--brightRed);
 }
 
 .popup {
+    width: 250px;
 }
 
 .status {
@@ -36,9 +45,9 @@ h1 {
 }
 
 .grid {
-    margin: 12px 4px;
-    padding: 12px 8px 4px;
-    border: 1px solid var(--lightGrey);
+    margin: 16px 4px 20px;
+    padding: 16px 8px 12px;
+    border: 1px solid var(--rustyIron);
     position: relative;
     font-size: 12px;
 }
@@ -46,7 +55,7 @@ h1 {
 h2 {
     font-size: 14px;
     position: absolute;
-    top: -8px;
+    top: -10px;
     left: 2px;
     background-color: var(--eggShell);
     padding: 0 4px;
@@ -60,17 +69,74 @@ h2 {
 
 }
 
-.button {
-    cursor: pointer;
-    border: none;
-    background: var(--darkPurple);
-    color: var(--eggShell);
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 4px;
-    line-height: 20px;
+.disabled span,
+.disabled input[type=number],
+.disabled label {
+    color: var(--rustyIron);
+}
+.disabled input[type=color] {
+    opacity: 0.3;
 }
 
-.buttonRemove {
+
+.checkbox {
+    position: absolute;
+    top: -12px;
+    right: 6px;
+    padding: 4px;
+    background: white;
+}
+
+input[type=checkbox]{
+    position: absolute;
+    top: 2px;
+    right: 4px;
+}
+
+.checkbox label {
+    cursor: pointer;
+    text-indent: -999px;
+    width: 30px;
+    height: 16px;
+    background: grey;
+    display: block;
+    border-radius: 10px;
+    position: relative;
+}
+
+.checkbox label:after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-radius: 14px;
+    transition: 0.3s;
+}
+
+.checkbox input:checked + label {
     background: var(--brightRed);
+}
+
+.checkbox input:checked + label:after {
+    left: calc(100% - 1px);
+    transform: translateX(-100%);
+}
+
+.checkbox label:active:after {
+    width: 18px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    margin: 8px;
+}
+
+.footer a {
+    font-size: 12px;
+    color: var(--rustyIron);
+    text-decoration: none;
 }

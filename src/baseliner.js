@@ -145,22 +145,6 @@ window.Baseliner = {
         );
       });
     }
-  },
-
-  removeBaseliner: function() {
-    const sheet = document.getElementById(this.styleTagID).sheet;
-
-    // Remove styles
-    if (Array.from(sheet.cssRules).length > 0) {
-      while (sheet.cssRules.length > 0) {
-        sheet.deleteRule(0);
-      }
-    }
-
-    // Clears storage
-    this.saveToStorage(null);
-
-    chrome.runtime.sendMessage({ status: "removed" });
   }
 };
 
