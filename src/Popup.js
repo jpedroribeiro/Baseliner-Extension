@@ -325,15 +325,13 @@ function Popup() {
         <a
           href={"https://github.com/jpedroribeiro/Baseliner/issues"}
           target={"_blank"}
-          className={``}
-          title={"Removes Baseliner from the page"}
+          title={"Suggestions? Bugs? Drop us a message"}
         >
           Feedback?
         </a>
         <a
           href={"https://github.com/jpedroribeiro/Baseliner/issues"}
           target={"_blank"}
-          className={``}
           title={"Removes Baseliner from the page"}
         >
           Support Us

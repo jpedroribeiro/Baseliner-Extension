@@ -13,7 +13,7 @@
     --brightRedDark: #c64560;
     --eggShell: #FFFEFC;
     --rustyIron: #A18396;
-    --lightGrey: #EEE;
+    --lightGrey: #f2f2f2;
 }
 
 body {
@@ -25,31 +25,40 @@ body {
 h1 {
     background-color: var(--darkPurple);
     padding: 8px;
+    text-align: center;
 }
 
 h1 a {
     font-family: Dosis, sans-serif;
-    font-size: 18px;
+    font-size: 22px;
+    line-height: 1;
     text-decoration: none;
-    color: var(--brightRed);
+    color: white;
 }
 
 .popup {
     width: 250px;
+    height: 412px;
 }
 
 .status {
     background-color: var(--lightGrey);
     padding: 8px;
+    border-left: 2px solid var(--brightRed);
     font-size: 12px;
+}
+
+.status b {
+    color: var(--brightRedDark)
 }
 
 .grid {
     margin: 16px 4px 20px;
-    padding: 16px 8px 12px;
+    padding: 20px 8px 0;
     border: 1px solid var(--rustyIron);
     position: relative;
     font-size: 12px;
+    background: white;
 }
 
 h2 {
@@ -59,14 +68,6 @@ h2 {
     left: 2px;
     background-color: var(--eggShell);
     padding: 0 4px;
-}
-
-.grid.vertical {
-
-}
-
-.grid.horizontal {
-
 }
 
 .disabled span,
@@ -129,6 +130,31 @@ input[type=checkbox]{
     width: 18px;
 }
 
+.row:not(.checkbox) {
+    display: flex;
+    align-items: baseline;
+    height: 36px;
+}
+
+.row:not(.checkbox) label {
+    flex: 0 0 60px;
+}
+
+.row:not(.checkbox) input {
+    flex: 1 1 auto;
+}
+
+.row:not(.checkbox) input {
+    max-width: 116px;
+}
+
+
+.row:not(.checkbox) span {
+    flex: 0 0 50px;
+    text-align: center;
+}
+
+
 .footer {
     display: flex;
     justify-content: space-around;
@@ -139,4 +165,9 @@ input[type=checkbox]{
     font-size: 12px;
     color: var(--rustyIron);
     text-decoration: none;
+}
+
+.footer a:hover {
+    color: var(--brightRedDark);
+    text-decoration: underline;
 }
